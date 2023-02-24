@@ -16,6 +16,49 @@ public class LoginDAO {
 
 	}
 
+	public UserSession updateDetails(UserSession user, String username, String email) {
+		PreparedStatement pst = null;
+		try {
+			connection = DatabaseConnector.getInstance().getConnection();
+			pst = connection.prepareStatement("UPDATE users SET username=?, email=? WHERE username=?");
+			pst.setString(1, username);
+			pst.setString(2, email);
+			pst.setString(3, user.getUsername());
+			pst.executeUpdate();
+			user.setUsername(username);
+			user.setEmail(email);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return user;
+
+	}
+
+	public void updatePassword(String oldPassword, String newPassword) {
+		PreparedStatement pst = null;
+		try {
+			connection = DatabaseConnector.getInstance().getConnection();
+			pst = connection.prepareStatement("UPDATE users SET password=MD5(?) WHERE password=MD5(?)");
+			pst.setString(1, newPassword);
+			pst.setString(2, oldPassword);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	public UserSession validateLogin(String username, String password) {
 		PreparedStatement pst = null;
 		UserSession userSession = null;
@@ -36,8 +79,7 @@ public class LoginDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			try {
 				pst.close();
 			} catch (SQLException e) {
@@ -46,13 +88,14 @@ public class LoginDAO {
 		}
 		return userSession;
 	}
-	
+
 	public boolean registerUser(UserRegistration user) {
-		boolean flag=false;
+		boolean flag = false;
 		PreparedStatement pst = null;
 		try {
 			connection = DatabaseConnector.getInstance().getConnection();
-			pst = connection.prepareStatement("INSERT INTO users(username,firstname,lastname,password,email,role) value(?,?,?,MD5(?),?,?)");
+			pst = connection.prepareStatement(
+					"INSERT INTO users(username,firstname,lastname,password,email,role) value(?,?,?,MD5(?),?,?)");
 			pst.setString(1, user.getUsername());
 			pst.setString(2, user.getFirstname());
 			pst.setString(3, user.getLastname());
@@ -60,13 +103,12 @@ public class LoginDAO {
 			pst.setString(5, user.getEmail());
 			pst.setString(6, user.getRole().toString());
 			int row = pst.executeUpdate();
-			if(row > 0) {
-				flag=true;
+			if (row > 0) {
+				flag = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			try {
 				pst.close();
 			} catch (SQLException e) {

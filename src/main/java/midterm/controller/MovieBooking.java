@@ -1,13 +1,14 @@
 package midterm.controller;
 
 import java.io.IOException;
-import java.util.List;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.mongodb.MongoClient;
 
@@ -15,16 +16,16 @@ import midterm.dao.MovieDAO;
 import midterm.model.Movie;
 
 /**
- * Servlet implementation class Dashboard
+ * Servlet implementation class MovieBooking
  */
-@WebServlet("/userDashboard")
-public class Dashboard extends HttpServlet {
+@WebServlet("/movieBooking")
+public class MovieBooking extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Dashboard() {
+    public MovieBooking() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,14 +35,13 @@ public class Dashboard extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
 		ServletContext application = request.getServletContext();
 		MongoClient mongoClient = (MongoClient) application.getAttribute("mongodbClient");
 	    MovieDAO movieDAO = new MovieDAO(mongoClient);
-	    List<Movie> movies = movieDAO.getAllMovies();
-	    request.setAttribute("movies",movies);
-//		System.out.println(movies);
-		request.getRequestDispatcher("/WEB-INF/userDashboard.jsp").forward(request, response);
+		Movie movie = movieDAO.getMovie(request.getParameter("id"));
+		HttpSession session = request.getSession();
+		session.setAttribute("movie", movie);
+		request.getRequestDispatcher("/WEB-INF/movieBooking.jsp").forward(request, response);
 	}
 
 	/**

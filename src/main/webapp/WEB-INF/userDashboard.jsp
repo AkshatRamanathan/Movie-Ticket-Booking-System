@@ -106,8 +106,11 @@ img {
 		<li class="logo"><img src="logo.png" alt="Logo"></li>
 		<li class="center">BookMyMovie</li>
 
-		<li><a href="userProfile">Profile</a></li>
-		<li><a href="logout">Logout</a></li>
+		<li><a href="controller?action=movieBooking"
+			style="text-decoration: none">My Bookings</a></li>
+		<li><a href="controller?action=userProfile"
+			style="text-decoration: none">Profile</a></li>
+		<li><a href="logout" style="text-decoration: none">Logout</a></li>
 	</ul>
 
 	<!-- Add your content below -->
@@ -125,19 +128,24 @@ img {
 
 		<%
 		ArrayList<Movie> movies = (ArrayList<Movie>) request.getAttribute("movies");
-		for (Movie movie : movies) {
+		if (movies != null) {
+			for (Movie movie : movies) {
 		%>
 		<div class="card movie_card">
 			<div class="card-body">
-				<i class="fas fa-ticket-alt play_button" data-toggle="tooltip"
-					data-placement="bottom" title="Play Trailer"> </i>
+				<a style="text-decoration: none"
+					href="movieBooking?id=<%=movie.get_id().toString()%>"><i
+					class="fas fa-ticket-alt play_button" data-toggle="tooltip"
+					data-placement="bottom" title="Book"> </i></a>
 				<h5 class="card-title"><%=movie.getName()%></h5>
-				<span class="movie_info"><%=movie.getRelease_date()%></span>
-				<span class="movie_info float-right"><i class="fas fa-wallet"></i> <%=movie.getCost()%></span>
+				<span class="movie_info"><%=movie.getRelease_date()%></span> <span
+					class="movie_info float-right"><i class="fas fa-wallet"></i>
+					<%=movie.getCost()%></span>
 			</div>
 		</div>
-		<br/>
+		<br />
 		<%
+		}
 		}
 		%>
 	</div>

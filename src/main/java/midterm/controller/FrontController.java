@@ -59,6 +59,9 @@ public class FrontController extends HttpServlet {
 				} else if ("userProfile".equals(action)) {
 					userSession.setCurrentPage(currentPage);
 					dispatcher = "userProfile";
+				} else if("movieBooking".equals(action)) {
+					userSession.setCurrentPage(currentPage);
+					dispatcher = "movieBooking";
 				}
 			}else if("userProfile".equals(currentPage)){
 				if (action == null) {
@@ -66,6 +69,9 @@ public class FrontController extends HttpServlet {
 
 				}else if ("userProfile".equals(action) || "editProfile".equals(action) || "editProfilePassword".equals(action)) {
 					dispatcher = "userProfile";
+				} else if("movieBooking".equals(action)) {
+					userSession.setCurrentPage(currentPage);
+					dispatcher = "movieBooking";
 				}
 			}
 			request.getRequestDispatcher(dispatcher).forward(request, response);

@@ -2,6 +2,12 @@
 <html>
 <head>
 <link rel="stylesheet" href="css/styles.css" >
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+	integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+	crossorigin="anonymous">
 <style type="text/css">
  /* Add your registration form styling here */
     .login-form {
@@ -51,8 +57,8 @@
 		<li class="logo"><img src="logo.png" alt="Logo"></li>
 		<li class="center">BookMyMovie</li>
 		
-		<li><a href="registration">Register</a></li>
-		<li><a href="index.html">Home</a></li>
+		<li><a href="registration" style="text-decoration: none">Register</a></li>
+		<li><a href="index.html" style="text-decoration: none" >Home</a></li>
 	</ul>
 
 	<!-- Add your registration form below -->

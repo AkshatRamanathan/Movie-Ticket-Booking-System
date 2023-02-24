@@ -57,7 +57,8 @@ public class MovieDAO {
 		return doc != null;
 	}
 
-	public Movie getMovie(ObjectId _id) {
+	public Movie getMovie(String id) {
+		ObjectId _id=new ObjectId(id);
 		Document doc = this.mongoCollectionMovies.find(Filters.eq("_id", _id)).first();
 		return MovieConvertor.toMovie(doc);
 	}
