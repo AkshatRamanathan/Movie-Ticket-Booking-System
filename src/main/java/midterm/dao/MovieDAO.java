@@ -12,13 +12,16 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Filters;
 import midterm.model.Movie;
+import midterm.model.Order;
 
 public class MovieDAO {
 
 	private MongoCollection<Document> mongoCollectionMovies;
+	private MongoCollection<Document> mongoCollectionOrders;
 
 	public MovieDAO(MongoClient mongo) {
 		this.mongoCollectionMovies = mongo.getDatabase("midterm").getCollection("movies");
+		this.mongoCollectionOrders = mongo.getDatabase("midterm").getCollection("orders");
 	}
 
 	public Movie create(Movie movie) {
@@ -45,8 +48,9 @@ public class MovieDAO {
 	}
 
 	public void update(Movie movie) {
-	        this.mongoCollectionMovies.updateOne(Filters.eq("_id", movie.get_id()), new Document("$set", MovieConvertor.toDocument(movie)));
-	    }
+		this.mongoCollectionMovies.updateOne(Filters.eq("_id", movie.get_id()),
+				new Document("$set", MovieConvertor.toDocument(movie)));
+	}
 
 	public void delete(ObjectId _id) {
 		this.mongoCollectionMovies.deleteOne(Filters.eq("_id", _id));
@@ -58,8 +62,26 @@ public class MovieDAO {
 	}
 
 	public Movie getMovie(String id) {
-		ObjectId _id=new ObjectId(id);
+		ObjectId _id = new ObjectId(id);
 		Document doc = this.mongoCollectionMovies.find(Filters.eq("_id", _id)).first();
 		return MovieConvertor.toMovie(doc);
+	}
+
+	public void bookMovie(Movie movie, String quantity, String username) {
+		// TODO Auto-generated method stub
+		// add to order collection
+		Order order = new Order();
+		order.setUsername(username);
+		order.setQuantity(Integer.parseInt(quantity));
+		order.setCost(movie.getCost());
+		order.setStatus("BOOKED");
+		order.setMovie_id(movie.get_id().toString());
+		Document orderDoc = OrderConvertor.toDocument(order);
+		this.mongoCollectionOrders.insertOne(orderDoc);
+		// update quanitity in existing
+		int newSeats = Integer.parseInt(movie.getSeats_left())-Integer.parseInt(quantity);
+		movie.setSeats_left(Integer.toString(newSeats));
+		this.update(movie);
+
 	}
 }

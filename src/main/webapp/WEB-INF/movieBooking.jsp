@@ -65,7 +65,7 @@ input[type=submit]:hover {
 	<!-- Add your registration form below -->
 	<div class="registration-form">
 		<h2>Movie Booking</h2>
-		<form action="movieBooking?xxx" method="post">
+		<form action="movieBooking" method="post">
 			<label for="name">Movie Name</label>
 			<input type="text" id="name" name="name" class="form-control" value="${movie.getName()}" disabled>
 			

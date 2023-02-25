@@ -106,7 +106,7 @@ img {
 		<li class="logo"><img src="logo.png" alt="Logo"></li>
 		<li class="center">BookMyMovie</li>
 
-		<li><a href="controller?action=movieBooking"
+		<li><a href="controller?action="
 			style="text-decoration: none">My Bookings</a></li>
 		<li><a href="controller?action=userProfile"
 			style="text-decoration: none">Profile</a></li>
@@ -134,7 +134,7 @@ img {
 		<div class="card movie_card">
 			<div class="card-body">
 				<a style="text-decoration: none"
-					href="movieBooking?id=<%=movie.get_id().toString()%>"><i
+					href="controller?action=movieBooking&id=<%=movie.get_id().toString()%>"><i
 					class="fas fa-ticket-alt play_button" data-toggle="tooltip"
 					data-placement="bottom" title="Book"> </i></a>
 				<h5 class="card-title"><%=movie.getName()%></h5>

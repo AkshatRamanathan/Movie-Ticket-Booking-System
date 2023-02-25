@@ -14,6 +14,7 @@ import com.mongodb.MongoClient;
 
 import midterm.dao.MovieDAO;
 import midterm.model.Movie;
+import midterm.model.UserSession;
 
 /**
  * Servlet implementation class MovieBooking
@@ -49,7 +50,16 @@ public class MovieBooking extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		HttpSession session = request.getSession();
+		Movie movie = (Movie) session.getAttribute("movie");
+		ServletContext application = request.getServletContext();
+		MongoClient mongoClient = (MongoClient) application.getAttribute("mongodbClient");
+	    MovieDAO movieDAO = new MovieDAO(mongoClient);
+	    String quantity = request.getParameter("quantity");
+	    UserSession userSession = (UserSession) session.getAttribute("userSession");
+		movieDAO.bookMovie(movie,quantity,userSession.getUsername());
+		request.getRequestDispatcher("/WEB-INF/bookingStatus.jsp").forward(request, response);
+		
 	}
 
 }

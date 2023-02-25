@@ -40,7 +40,6 @@ public class Dashboard extends HttpServlet {
 	    MovieDAO movieDAO = new MovieDAO(mongoClient);
 	    List<Movie> movies = movieDAO.getAllMovies();
 	    request.setAttribute("movies",movies);
-//		System.out.println(movies);
 		request.getRequestDispatcher("/WEB-INF/userDashboard.jsp").forward(request, response);
 	}
 

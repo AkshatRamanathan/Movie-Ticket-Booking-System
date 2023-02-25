@@ -23,7 +23,7 @@
         padding: 10px;
       }
 </style>
-<meta http-equiv="refresh" content="5; url=./login">
+<meta http-equiv="refresh" content="5; url=./controller">
 </head>
 <body>
 
@@ -36,7 +36,7 @@
 	</ul>
 
 	<div style="padding:50px">
-      <h2 class="success">Registration Successful</h2>
+      <h2 class="success">Booking Successful</h2>
       <p class="success-simple">(You will be redirected in 5 seconds.)</p>
     </div>
 

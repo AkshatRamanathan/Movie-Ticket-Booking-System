@@ -63,7 +63,7 @@
 
 	<!-- Add your registration form below -->
    <div class="login-form">
-      <h2>Login Form</h2>
+      <h2>Customer Login</h2>
       <%
       	if(request.getAttribute("errorMsg")!= null){
       %>	
@@ -79,7 +79,7 @@
         <label for="password">Password</label>
         <input type="password" id="password" name="password" class="form-control" required>
 
-        <input type="submit" value="Submit">
+        <input type="submit" style="width:100%;" value="Submit">
       </form>
     </div>
 
