@@ -55,6 +55,16 @@ public class MovieDAO {
 	public void delete(ObjectId _id) {
 		this.mongoCollectionMovies.deleteOne(Filters.eq("_id", _id));
 	}
+	
+	public void deleteOrder(String id) {
+		ObjectId _id = new ObjectId(id);
+		Order order = this.getOrder(id);
+		Movie movie = this.getMovie(order.getMovie_id());
+		int newTotal = Integer.parseInt(movie.getSeats_left())+order.getQuantity();
+		movie.setSeats_left(String.valueOf(newTotal));
+		this.update(movie);
+		this.mongoCollectionOrders.deleteOne(Filters.eq("_id", _id));
+	}
 
 	public boolean exists(ObjectId _id) {
 		FindIterable<Document> doc = this.mongoCollectionMovies.find(Filters.eq("_id", _id)).limit(1);
@@ -65,6 +75,12 @@ public class MovieDAO {
 		ObjectId _id = new ObjectId(id);
 		Document doc = this.mongoCollectionMovies.find(Filters.eq("_id", _id)).first();
 		return MovieConvertor.toMovie(doc);
+	}
+	
+	public Order getOrder(String id) {
+		ObjectId _id = new ObjectId(id);
+		Document doc = this.mongoCollectionOrders.find(Filters.eq("_id", _id)).first();
+		return OrderConvertor.toOrder(doc);
 	}
 
 	public void bookMovie(Movie movie, String quantity, String username) {
@@ -83,5 +99,21 @@ public class MovieDAO {
 		movie.setSeats_left(Integer.toString(newSeats));
 		this.update(movie);
 
+	}
+
+	public List<Order> getOrders(String username) {
+		// TODO Auto-generated method stub
+		List<Order> orders= new ArrayList<Order>();
+		MongoCursor<Document> cursor = mongoCollectionOrders.find(Filters.eq("username", username)).iterator();
+		try {
+			while (cursor.hasNext()) {
+				Document doc = cursor.next();
+				Order order = OrderConvertor.toOrder(doc);
+				orders.add(order);
+			}
+		} finally {
+			cursor.close();
+		}
+		return orders;
 	}
 }

@@ -106,7 +106,7 @@ img {
 		<li class="logo"><img src="logo.png" alt="Logo"></li>
 		<li class="center">BookMyMovie</li>
 
-		<li><a href="controller?action="
+		<li><a href="controller?action=viewBooking"
 			style="text-decoration: none">My Bookings</a></li>
 		<li><a href="controller?action=userProfile"
 			style="text-decoration: none">Profile</a></li>

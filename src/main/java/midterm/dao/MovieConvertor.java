@@ -20,7 +20,7 @@ public class MovieConvertor {
 	}
 
 	public static Movie toMovie(Document movieDoc) {
-		System.out.println(movieDoc);
+//		System.out.println(movieDoc);
 		Movie movie = new Movie();
 
 		movie.set_id((ObjectId) movieDoc.get("_id"));

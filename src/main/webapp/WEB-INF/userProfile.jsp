@@ -51,7 +51,7 @@ input[type=submit]:hover {
 		<li class="logo"><img src="logo.png" alt="Logo"></li>
 		<li class="center">BookMyMovie</li>
 
-		<li><a href="controller?action=movieBooking" style="text-decoration: none">My Bookings</a></li>
+		<li><a href="controller?action=viewBooking" style="text-decoration: none">My Bookings</a></li>
 		<li><a href="controller?action=userDashboard" style="text-decoration: none">Dashboard</a></li>
 		<li><a href="logout" style="text-decoration: none" >Logout</a></li>
 	</ul>

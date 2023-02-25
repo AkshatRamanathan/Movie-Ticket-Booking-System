@@ -21,13 +21,13 @@ public class OrderConvertor {
 
 	}
 
-	public static Order toMovie(Document orderDoc) {
+	public static Order toOrder(Document orderDoc) {
 		System.out.println(orderDoc);
 		Order order = new Order();
 		
 		order.set_id((ObjectId) orderDoc.get("_id"));
 		order.setUsername(orderDoc.get("username").toString());
-		order.setQuantity(Integer.parseInt(orderDoc.get("quanitity").toString()));
+		order.setQuantity(Integer.parseInt(orderDoc.get("quantity").toString()));
 		order.setCost(orderDoc.get("cost").toString());
 		order.setStatus(orderDoc.get("status").toString());
 		order.setMovie_id(orderDoc.get("movie_id").toString());

@@ -11,26 +11,27 @@ import javax.servlet.http.HttpSession;
 import midterm.model.UserRegistration;
 import midterm.model.UserSession;
 
-
 /**
  * Servlet implementation class FrontController
  */
 @WebServlet("/controller")
 public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public FrontController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public FrontController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession();
@@ -59,24 +60,40 @@ public class FrontController extends HttpServlet {
 				} else if ("userProfile".equals(action)) {
 					userSession.setCurrentPage(currentPage);
 					dispatcher = "userProfile";
-				} else if("movieBooking".equals(action)) {
+				} else if ("movieBooking".equals(action)) {
 					userSession.setCurrentPage(currentPage);
 					dispatcher = "movieBooking";
+				} else if ("viewBooking".equals(action)) {
+					userSession.setCurrentPage(currentPage);
+					dispatcher = "viewBooking";
 				}
-			}else if("userProfile".equals(currentPage)){
+			} else if ("userProfile".equals(currentPage)) {
 				if (action == null) {
 					userSession.setCurrentPage("userDashboard");
-
-				}else if ("userProfile".equals(action) || "editProfile".equals(action) || "editProfilePassword".equals(action)) {
+				} else if ("userProfile".equals(action)) {
 					dispatcher = "userProfile";
-				} else if("movieBooking".equals(action)) {
+				} else if ("viewBooking".equals(action)) {
 					userSession.setCurrentPage(currentPage);
-					dispatcher = "movieBooking";
+					dispatcher = "viewBooking";
+				}
+			} else if ("movieBooking".equals(currentPage)) {
+				if (action == null) {
+					dispatcher = "userDashboard";
+				} else if ("userProfile".equals(action)) {
+					userSession.setCurrentPage(currentPage);
+					dispatcher = "userProfile";
+				} else if ("userDashboard".equals(action)) {
+					userSession.setCurrentPage(currentPage);
+					dispatcher = "userDashboard";
+				} else if ("viewBooking".equals(action)) {
+					userSession.setCurrentPage(currentPage);
+					dispatcher = "viewBooking";
 				}
 			}
+
 			request.getRequestDispatcher(dispatcher).forward(request, response);
 			break;
-			
+
 		default:
 			session.invalidate();
 			response.sendRedirect("index.html");
@@ -85,9 +102,11 @@ public class FrontController extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
