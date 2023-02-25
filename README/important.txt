@@ -1,0 +1,9 @@
+CREDENTIALS-
+
+user - either register or use following-
+username: harsh
+pass: haha
+
+admin -
+username: aksh
+pass: 123
