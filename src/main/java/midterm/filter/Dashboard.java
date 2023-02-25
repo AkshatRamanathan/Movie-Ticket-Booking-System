@@ -19,10 +19,15 @@ import midterm.model.UserSession;
 /**
  * Servlet Filter implementation class Dashboard
  */
-@WebFilter( urlPatterns = {"/dashboard"})
+@WebFilter( urlPatterns = {"/userDashboard","/adminDashboard"})
 public class Dashboard extends HttpFilter implements Filter {
        
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * @see HttpFilter#HttpFilter()
      */
     public Dashboard() {

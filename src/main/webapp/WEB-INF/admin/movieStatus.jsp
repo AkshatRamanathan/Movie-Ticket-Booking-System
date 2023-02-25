@@ -23,13 +23,12 @@
         padding: 10px;
       }
 </style>
-<meta http-equiv="refresh" content="5; url=./login">
+<meta http-equiv="refresh" content="5; url=./controller">
 </head>
 <body>
 
-
 	<div style="padding:50px">
-      <h2 class="success">Registration Successful</h2>
+      <h2 class="success">Movie Added Successfully</h2>
       <p class="success-simple">(You will be redirected in 5 seconds.)</p>
     </div>
 

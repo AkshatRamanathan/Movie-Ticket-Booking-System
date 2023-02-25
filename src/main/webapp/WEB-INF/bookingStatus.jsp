@@ -27,13 +27,6 @@
 </head>
 <body>
 
-	<ul>
-		<li class="logo"><img src="logo.png" alt="Logo"></li>
-		<li class="center">BookMyMovie</li>
-		
-		<li><a href="registration" style="text-decoration: none">Register</a></li>
-		<li><a href="index.html" style="text-decoration: none">Home</a></li>
-	</ul>
 
 	<div style="padding:50px">
       <h2 class="success">Booking Successful</h2>

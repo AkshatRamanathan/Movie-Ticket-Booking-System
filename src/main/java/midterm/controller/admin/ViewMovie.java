@@ -1,4 +1,4 @@
-package midterm.controller;
+package midterm.controller.admin;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,24 +11,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.mongodb.MongoClient;
-
 import midterm.dao.MovieDAO;
+import midterm.model.Movie;
 import midterm.model.Order;
 import midterm.model.UserSession;
 
 /**
  * Servlet implementation class ViewBooking
  */
-@WebServlet("/viewBooking")
-public class ViewBooking extends HttpServlet {
+@WebServlet("/viewMovie")
+public class ViewMovie extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ViewBooking() {
+	public ViewMovie() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -41,21 +40,18 @@ public class ViewBooking extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		ServletContext application = request.getServletContext();
-		HttpSession session = request.getSession();
-		UserSession userSession = (UserSession) session.getAttribute("userSession");
 		MongoClient mongoClient = (MongoClient) application.getAttribute("mongodbClient");
 		MovieDAO movieDAO = new MovieDAO(mongoClient);
 		String id = request.getParameter("id");
 		if (id != null) {
-			movieDAO.deleteOrder(id);
-			response.sendRedirect("controller?action=viewBooking");
+			movieDAO.delete(id);
+			response.sendRedirect("controller?action=viewMovie");
 			return;
 //			request.getRequestDispatcher("/WEB-INF/viewBooking.jsp").forward(request, response);
 		}
-		List<Order> orders = movieDAO.getOrders(userSession.getUsername());
-//		System.out.println(orders);
-		request.setAttribute("orders", orders);
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/viewBooking.jsp");
+		List<Movie> movies = movieDAO.getAllMovies();
+		request.setAttribute("movies", movies);
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/admin/viewMovie.jsp");
 		rd.forward(request, response);
 	}
 

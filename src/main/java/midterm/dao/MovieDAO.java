@@ -52,15 +52,16 @@ public class MovieDAO {
 				new Document("$set", MovieConvertor.toDocument(movie)));
 	}
 
-	public void delete(ObjectId _id) {
+	public void delete(String id) {
+		ObjectId _id = new ObjectId(id);
 		this.mongoCollectionMovies.deleteOne(Filters.eq("_id", _id));
 	}
-	
+
 	public void deleteOrder(String id) {
 		ObjectId _id = new ObjectId(id);
 		Order order = this.getOrder(id);
 		Movie movie = this.getMovie(order.getMovie_id());
-		int newTotal = Integer.parseInt(movie.getSeats_left())+order.getQuantity();
+		int newTotal = Integer.parseInt(movie.getSeats_left()) + order.getQuantity();
 		movie.setSeats_left(String.valueOf(newTotal));
 		this.update(movie);
 		this.mongoCollectionOrders.deleteOne(Filters.eq("_id", _id));
@@ -76,7 +77,7 @@ public class MovieDAO {
 		Document doc = this.mongoCollectionMovies.find(Filters.eq("_id", _id)).first();
 		return MovieConvertor.toMovie(doc);
 	}
-	
+
 	public Order getOrder(String id) {
 		ObjectId _id = new ObjectId(id);
 		Document doc = this.mongoCollectionOrders.find(Filters.eq("_id", _id)).first();
@@ -95,7 +96,7 @@ public class MovieDAO {
 		Document orderDoc = OrderConvertor.toDocument(order);
 		this.mongoCollectionOrders.insertOne(orderDoc);
 		// update quanitity in existing
-		int newSeats = Integer.parseInt(movie.getSeats_left())-Integer.parseInt(quantity);
+		int newSeats = Integer.parseInt(movie.getSeats_left()) - Integer.parseInt(quantity);
 		movie.setSeats_left(Integer.toString(newSeats));
 		this.update(movie);
 
@@ -103,7 +104,7 @@ public class MovieDAO {
 
 	public List<Order> getOrders(String username) {
 		// TODO Auto-generated method stub
-		List<Order> orders= new ArrayList<Order>();
+		List<Order> orders = new ArrayList<Order>();
 		MongoCursor<Document> cursor = mongoCollectionOrders.find(Filters.eq("username", username)).iterator();
 		try {
 			while (cursor.hasNext()) {

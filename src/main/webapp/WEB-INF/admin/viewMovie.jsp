@@ -1,3 +1,4 @@
+<%@page import="midterm.model.Movie"%>
 <%@page import="com.mongodb.MongoClient"%>
 <%@page import="midterm.dao.MovieDAO"%>
 <%@page import="midterm.model.Order"%>
@@ -42,6 +43,8 @@ tr:nth-child(even) {
 
 		<li><a href="controller?action=userDashboard"
 			style="text-decoration: none">Dashboard</a></li>
+		<li><a href="controller?action=addMovie"
+			style="text-decoration: none">Add Movie</a></li>
 		<li><a href="controller?action=userProfile"
 			style="text-decoration: none">Profile</a></li>
 		<li><a href="logout" style="text-decoration: none">Logout</a></li>
@@ -51,36 +54,37 @@ tr:nth-child(even) {
 
 	<!-- Add your table of data below -->
 	<div style="padding: 50px">
-		<h1>Your Order History</h1>
+		<h1>Available Movies List</h1>
 		<hr>
 		<table>
 			<tr>
 				<th>Movie Name</th>
-				<th>Quantity</th>
+				<th>Genre</th>
 				<th>Cost</th>
-				<th>Status</th>
-				<th>Cancel</th>
-
+				<th>Release Date</th>
+				<th>Seats Left</th>
+				<th>Delete</th>
 			</tr>
 			<%
-			ArrayList<Order> orders = (ArrayList<Order>) request.getAttribute("orders");
+			ArrayList<Movie> movies = (ArrayList<Movie>) request.getAttribute("movies");
 			MongoClient mongoClient = (MongoClient) application.getAttribute("mongodbClient");
 			MovieDAO movieDAO = new MovieDAO(mongoClient);
 
-			if (orders != null) {
-				for (Order order : orders) {
+			if (movies != null) {
+				for (Movie movie : movies) {
 			%>
 			<!-- Add more rows of data as needed -->
 			<tr>
-				<td><%=movieDAO.getMovie(order.getMovie_id().toString()).getName()%></td>
-				<td><%=order.getQuantity()%></td>
-				<td><%=order.getCost()%></td>
-				<td><%=order.getStatus()%></td>
+				<td><%=movie.getName()%></td>
+				<td><%=movie.getGenre()%></td>
+				<td><%=movie.getCost()%></td>
+				<td><%=movie.getRelease_date()%></td>
+				<td><%=movie.getSeats_left()%></td>
 
 				<td><a data-toggle="tooltip" data-placement="bottom"
-					title="Cancel"
-					href="viewBooking?id=<%=order.get_id().toString()%>">
-					<i class="far fa-window-close"></i></a></td>
+					title="Cancel" href="viewMovie?id=<%=movie.get_id().toString()%>">
+						<i class="far fa-window-close"></i>
+				</a></td>
 
 
 			</tr>

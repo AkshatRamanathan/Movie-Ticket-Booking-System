@@ -41,17 +41,71 @@ public class FrontController extends HttpServlet {
 		String currentPage = userSession.getCurrentPage();
 		String dispatcher = "/login";
 		switch (role) {
-//		case ADMIN:
-//			if ("adminDashboard".equals(currentPage)) {
-//				if (action == null) {
-//					dispatcher = "adminDashboard";
-//				}else if ("viewMovies".equals(action)) {
-//					dispatcher = "viewMovies";
-//				}
-//
-//			}
-//			request.getRequestDispatcher(dispatcher).forward(request, response);
-//			break;
+		case ADMIN:
+			if ("adminDashboard".equals(currentPage)) {
+				if (action == null) {
+					dispatcher = "adminDashboard";
+				} else if ("userProfile".equals(action)) {
+					userSession.setCurrentPage(currentPage);
+					dispatcher = "userProfile";
+				} else if ("addMovie".equals(action)) {
+					userSession.setCurrentPage(currentPage);
+					dispatcher = "addMovie";
+				} else if ("editMovie".equals(action)) {
+					userSession.setCurrentPage(currentPage);
+					dispatcher = "editMovie";
+				} else if ("viewMovie".equals(action)) {
+					userSession.setCurrentPage(currentPage);
+					dispatcher = "viewMovie";
+				}
+			} else if ("userProfile".equals(currentPage)) {
+				if (action == null) {
+					userSession.setCurrentPage("adminDashboard");
+				} else if ("addMovie".equals(action)) {
+					userSession.setCurrentPage(currentPage);
+					dispatcher = "addMovie";
+				} else if ("viewMovie".equals(action)) {
+					userSession.setCurrentPage(currentPage);
+					dispatcher = "viewMovie";
+				}
+
+			} else if ("addMovie".equals(currentPage)) {
+				if (action == null) {
+					userSession.setCurrentPage("adminDashboard");
+				} else if ("userProfile".equals(action)) {
+					userSession.setCurrentPage(currentPage);
+					dispatcher = "userProfile";
+				} else if ("viewMovie".equals(action)) {
+					userSession.setCurrentPage(currentPage);
+					dispatcher = "viewMovie";
+				}
+			} else if ("editMovie".equals(currentPage)) {
+				if (action == null) {
+					userSession.setCurrentPage("adminDashboard");
+				} else if ("userProfile".equals(action)) {
+					userSession.setCurrentPage(currentPage);
+					dispatcher = "userProfile";
+				} else if ("addMovie".equals(action)) {
+					userSession.setCurrentPage(currentPage);
+					dispatcher = "addMovie";
+				} else if ("viewMovie".equals(action)) {
+					userSession.setCurrentPage(currentPage);
+					dispatcher = "viewMovie";
+				}
+			} else if ("viewMovie".equals(currentPage)) {
+				if (action == null) {
+					userSession.setCurrentPage("adminDashboard");
+				} else if ("userProfile".equals(action)) {
+					userSession.setCurrentPage(currentPage);
+					dispatcher = "userProfile";
+				} else if ("addMovie".equals(action)) {
+					userSession.setCurrentPage(currentPage);
+					dispatcher = "addMovie";
+				}
+			}
+
+			request.getRequestDispatcher(dispatcher).forward(request, response);
+			break;
 
 		case CUSTOMER:
 			if ("userDashboard".equals(currentPage)) {

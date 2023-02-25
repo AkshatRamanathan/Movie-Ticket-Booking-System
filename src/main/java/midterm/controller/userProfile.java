@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import midterm.dao.LoginDAO;
-import midterm.model.UserRegistration;
 import midterm.model.UserSession;
 
 /**
